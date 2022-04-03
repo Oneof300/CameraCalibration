@@ -2,8 +2,10 @@ import numpy as np
 import cv2 as cv
 import yaml
 
-# load camera parameters, reference:
-# https://pynative.com/python-yaml/#h-python-yaml-load-read-yaml-file
+# [1] https://docs.opencv.org/4.5.5/dc/dbb/tutorial_py_calibration.html
+# [2] https://pynative.com/python-yaml/#h-python-yaml-load-read-yaml-file
+
+# load camera parameters [2]
 with open("./data/cameraParameters.yaml") as file:
     cameraParameters = yaml.full_load(file)
 
@@ -31,14 +33,14 @@ if not ret:
     print("Cannot receive frame")
     exit()
 
-# calculate new camera matrix
+# calculate new camera matrix [1]
 newCameraMatrix, (x, y, width, height) = cv.getOptimalNewCameraMatrix(
     cameraMatrix = cameraMatrix, distCoeffs = distortionCoefficients,
     imageSize = frame.shape[:2], alpha = 1, newImageSize = frame.shape[:2]
 )
 
 while True:
-    # undistort frame
+    # undistort frame [1]
     frameUndistorted = cv.undistort(
         src = frame, cameraMatrix = cameraMatrix,
         distCoeffs = distortionCoefficients, dst = None,
