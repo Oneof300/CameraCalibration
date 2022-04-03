@@ -2,9 +2,6 @@ import numpy as np
 import cv2 as cv
 import yaml
 
-# [1] https://docs.opencv.org/4.5.5/dc/dbb/tutorial_py_calibration.html
-# [2] https://pynative.com/python-yaml/#h-python-yaml-load-read-yaml-file
-
 # load camera parameters [2]
 with open("./data/cameraParameters.yaml") as file:
     cameraParameters = yaml.full_load(file)
@@ -57,3 +54,6 @@ while True:
 
 videoCapture.release()
 cv.destroyAllWindows()
+
+# [1] https://docs.opencv.org/4.5.5/dc/dbb/tutorial_py_calibration.html
+# [2] https://pynative.com/python-yaml/#h-python-yaml-load-read-yaml-file

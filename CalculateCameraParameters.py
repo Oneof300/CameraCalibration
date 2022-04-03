@@ -3,9 +3,6 @@ import cv2 as cv
 import glob
 import yaml
 
-# [1] https://docs.opencv.org/4.5.5/dc/dbb/tutorial_py_calibration.html
-# [2] https://pynative.com/python-yaml/#h-python-yaml-dump-write-into-yaml-file
-
 # load image names [1]
 imageFilenames = glob.glob("./data/*.png")
 
@@ -107,3 +104,6 @@ for i in range(len(worldPointsPerImage)):
 
 with open("./data/cameraParameters.yaml", "w") as file:
     cameraParameters = yaml.dump(cameraParameters, file)
+
+# [1] https://docs.opencv.org/4.5.5/dc/dbb/tutorial_py_calibration.html
+# [2] https://pynative.com/python-yaml/#h-python-yaml-dump-write-into-yaml-file
