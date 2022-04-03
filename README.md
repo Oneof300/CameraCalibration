@@ -40,7 +40,7 @@ Mit Hilfe dieser Eckpunkte, werden dann die entsprechenden Kalibrierungsparamete
 Zudem wird hier der Reprojektionsfehler berechnet. Dabei wird für jedes Kalibrierungsbild der Abstand zwischen jedem Bildpunkt und dem jeweils entsprechenden Weltpunkt, der in das Bild projiziert wird, berechnet. Anschließend wird die Summe aller ermittelten Werte berechnet, diese beschreibt den Reprojektionsfehler.
 
 ### cameraParameters
-[Yaml Datei, in der die zuvor ermittelten Kameraparameter gespeichert werden.](data/cameraParameters.yaml)
+[Yaml Datei in der die zuvor ermittelten Kameraparameter gespeichert werden.](data/cameraParameters.yaml)
 
 ## UndistortedCamera
 [Das Programm zur Entzerrung eines Live-Bildes.](UndistortedCamera.py)
