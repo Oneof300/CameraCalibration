@@ -52,15 +52,29 @@ for imageFilename in imageFilenames:
         )
         
         cv.imshow("ChessboardCorners", image)
-        cv.waitKey(delay = 500)
+        cv.waitKey(delay = 5)
 
 cv.destroyAllWindows()
 
 # calculate camera calibration [1]
-ret, cameraMatrix, distortionCoefficients, rvecs, tvecs = cv.calibrateCamera(
+ret, cameraMatrix, distortionCoefficients, rotationVectors, translationVectors = cv.calibrateCamera(
     objectPoints = worldPointsPerImage, imagePoints = imagePointsPerImage,
     imageSize = imageGray.shape[::-1], cameraMatrix = None, distCoeffs = None
 )
+
+# calculate reprojection error [1]
+errorSum = 0
+for i in range(len(worldPointsPerImage)):
+    imagePointsProjected, jacobian = cv.projectPoints(
+        objectPoints = worldPointsPerImage[i], rvec = rotationVectors[i], tvec = translationVectors[i],
+        cameraMatrix = cameraMatrix, distCoeffs = distortionCoefficients
+    )
+    error = cv.norm(
+        src1 = imagePointsPerImage[i], src2 = imagePointsProjected, normType = cv.NORM_L2
+    ) / len(imagePointsProjected)
+    errorSum += error
+
+print("total reprojection error: {0}".format((errorSum / len(worldPointsPerImage))))
 
 # store calibration [2]
 cameraParameters = {
@@ -76,8 +90,20 @@ cameraParameters = {
         "fy" : cameraMatrix[1, 1].item(),
         "cx" : cameraMatrix[0, 2].item(),
         "cy" : cameraMatrix[1, 2].item()
-    }
+    },
+    "extrinsics" : []
 }
+
+# iterate through vectors to append them to the extrinsics
+for i in range(len(worldPointsPerImage)):
+    cameraParameters["extrinsics"].append({
+        "r1" : rotationVectors[i][0, 0].item(),
+        "r2" : rotationVectors[i][1, 0].item(),
+        "r3" : rotationVectors[i][2, 0].item(),
+        "t1" : translationVectors[i][0, 0].item(),
+        "t2" : translationVectors[i][1, 0].item(),
+        "t3" : translationVectors[i][2, 0].item()
+    })
 
 with open("./data/cameraParameters.yaml", "w") as file:
     cameraParameters = yaml.dump(cameraParameters, file)

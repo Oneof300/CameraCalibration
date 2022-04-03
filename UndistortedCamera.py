@@ -36,7 +36,7 @@ if not ret:
 # calculate new camera matrix [1]
 newCameraMatrix, (x, y, width, height) = cv.getOptimalNewCameraMatrix(
     cameraMatrix = cameraMatrix, distCoeffs = distortionCoefficients,
-    imageSize = frame.shape[:2], alpha = 1, newImageSize = frame.shape[:2]
+    imageSize = frame.shape[:2], alpha = 1, newImgSize = frame.shape[:2]
 )
 
 while True:
