@@ -16,7 +16,7 @@
 </details>
 
 # Kamerakalibrierung
-Bei der Erstsurchführung müssen die folgenden drei Programme zwingend der Reihe nach durchgeführt werden, damit die Kalibrierung mit den der verwendeten Kamera entsprechenden Parameter erfolgen kann. 
+Bei der Erstdurchführung müssen die nachfolgenden drei Programme zwingend der Reihe nach durchgeführt werden, damit die Kalibrierung mit den der verwendeten Kamera entsprechenden Parameter erfolgen kann. 
 
 Wurden diese Kameraparameter bereits ermittelt und in der entsprechenden Datei gespeichert, genügt die Durchführung des dritten Programms, um ein korrekt entzerrtes Bild zu erhalten.
 
