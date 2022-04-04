@@ -7,18 +7,22 @@ with open("./data/cameraParameters.yaml") as file:
     cameraParameters = yaml.full_load(file)
 
 cameraMatrix = np.zeros((3, 3), np.float32)
+# x- and y-scale of a pixel
 cameraMatrix[0, 0] = cameraParameters["intrinsics"]["fx"]
 cameraMatrix[1, 1] = cameraParameters["intrinsics"]["fy"]
+# x- and y-translation of the center principal point
 cameraMatrix[0, 2] = cameraParameters["intrinsics"]["cx"]
 cameraMatrix[1, 2] = cameraParameters["intrinsics"]["cy"]
 cameraMatrix[2, 2] = 1
 
 distortionCoefficients = np.zeros((1, 5), np.float32)
+# radial distortion coefficients
 distortionCoefficients[0, 0] = cameraParameters["distortionCoefficients"]["k1"]
 distortionCoefficients[0, 1] = cameraParameters["distortionCoefficients"]["k2"]
+distortionCoefficients[0, 4] = cameraParameters["distortionCoefficients"]["k3"]
+# tangential distortion coefficients
 distortionCoefficients[0, 2] = cameraParameters["distortionCoefficients"]["p1"]
 distortionCoefficients[0, 3] = cameraParameters["distortionCoefficients"]["p2"]
-distortionCoefficients[0, 4] = cameraParameters["distortionCoefficients"]["k3"]
 
 # start video capture and receive a first frame
 videoCapture = cv.VideoCapture(0)
