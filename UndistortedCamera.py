@@ -30,10 +30,12 @@ if not ret:
     print("Cannot receive frame")
     exit()
 
-# calculate new camera matrix [1]
+# calculate refined camera matrix to reduce the black/undefined 
+# corners. Parameter alpha can be set from 0 to 1 and defines 
+# how much of the black pixels should be visible [1]
 newCameraMatrix, (x, y, width, height) = cv.getOptimalNewCameraMatrix(
     cameraMatrix = cameraMatrix, distCoeffs = distortionCoefficients,
-    imageSize = frame.shape[:2], alpha = 1, newImgSize = frame.shape[:2]
+    imageSize = frame.shape[:2], alpha = 0.5, newImgSize = frame.shape[:2]
 )
 
 while True:
