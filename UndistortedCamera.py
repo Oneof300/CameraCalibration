@@ -7,10 +7,10 @@ with open("./data/cameraParameters.yaml") as file:
     cameraParameters = yaml.full_load(file)
 
 cameraMatrix = np.zeros((3, 3), np.float32)
-# x- and y-scale of a pixel
+# focal length
 cameraMatrix[0, 0] = cameraParameters["intrinsics"]["fx"]
 cameraMatrix[1, 1] = cameraParameters["intrinsics"]["fy"]
-# x- and y-translation of the center principal point
+# principal point
 cameraMatrix[0, 2] = cameraParameters["intrinsics"]["cx"]
 cameraMatrix[1, 2] = cameraParameters["intrinsics"]["cy"]
 cameraMatrix[2, 2] = 1
